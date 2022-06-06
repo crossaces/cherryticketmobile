@@ -1,5 +1,5 @@
 import 'package:cherryticketmobile/model/auth_model.dart';
-import 'package:cherryticketmobile/components/api.dart';
+import 'package:cherryticketmobile/components/data.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

@@ -1,143 +1,24 @@
-import 'package:cherryticketmobile/view/login.dart';
-import 'package:cherryticketmobile/view/register.dart';
+import 'package:cherryticketmobile/model/berita_model.dart';
+import 'package:cherryticketmobile/providerAPI/berita.dart';
+import 'package:cherryticketmobile/view/getstarted.dart';
+import 'package:cherryticketmobile/view/navigation.dart';
 import 'package:flutter/material.dart';
-import 'package:cherryticketmobile/components/color.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var token = prefs.getString('token');
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Cherry Ticket',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: cherry,
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Container(
-                    padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-                    child: Image.asset('assets/images/get_started.png')),
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-                  child: Container(
-                    padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-                    decoration: const BoxDecoration(
-                        color: white,
-                        borderRadius: BorderRadius.all(Radius.circular(15))),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                            width: double.infinity,
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  const AutoSizeText(
-                                    'Get Started!',
-                                    style: TextStyle(
-                                        fontSize: 25,
-                                        color: cherry,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  const AutoSizeText(
-                                    "Welcome to Cherry Ticket if you have an account you can sign in if you don't sign up first. Best regards, Cherry Tickets.",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        color: indigo,
-                                        fontWeight: FontWeight.w800),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      OutlinedButton(
-                                        onPressed: () {
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const Register()),
-                                          );
-                                        },
-                                        style: OutlinedButton.styleFrom(
-                                          primary: cherry,
-                                          side: const BorderSide(
-                                              width: 1.0, color: cherry),
-                                        ),
-                                        child: const Text("Sign Up"),
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                      const SizedBox(height: 8.0),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            primary: cherry),
-                                        onPressed: () {
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const Login()),
-                                          );
-                                        },
-                                        child: const Text("Sign In"),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ))
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<BeritaAPI>(create: (_) => BeritaAPI()),
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: token == null
+              ? const GetStartedScreen()
+              : const NavigationBottom())));
 }

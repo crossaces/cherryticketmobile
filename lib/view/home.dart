@@ -1,3 +1,4 @@
+import 'package:cherryticketmobile/view/list/berita.dart';
 import 'package:flutter/material.dart';
 import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/components/progress_hud.dart';
@@ -5,14 +6,14 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 import 'login.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeScreenState extends State<HomeScreen> {
   var emailController = TextEditingController();
   var passController = TextEditingController();
   var numberController = TextEditingController();
@@ -30,135 +31,68 @@ class _HomeState extends State<Home> {
   }
 
   Widget _upInit(BuildContext context) {
-    final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       backgroundColor: gray,
       body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Visibility(
-                visible: !isKeyboard,
-                child: Expanded(
-                  flex: !isKeyboard ? 1 : 1,
-                  child: Container(
-                      padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-                      child: Image.asset('assets/images/register.png')),
+        child: SingleChildScrollView(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const SizedBox(
+                  width: 10,
                 ),
-              ),
-              Expanded(
-                flex: !isKeyboard ? 2 : 1,
-                child: Center(
-                  child: Container(
-                    padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-                    child: Container(
-                      padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                              width: double.infinity,
-                              child: Center(
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    const AutoSizeText(
-                                      'Ooopss...',
-                                      style: TextStyle(
-                                          fontSize: 45,
-                                          color: indigo,
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    const AutoSizeText(
-                                      "Your account is not verified yet. Please verify your email by click on a link in your email",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: cherry,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    const AutoSizeText(
-                                      "Doesn’t receive email from us? Please click the button below to Home verification email.",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: cherry,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const SizedBox(height: 8.0),
-                                        ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              primary: cherry),
-                                          onPressed: () {},
-                                          child: const Text("Home"),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        const AutoSizeText(
-                                          "Already verified?",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: indigo,
-                                              fontWeight: FontWeight.w800),
-                                        ),
-                                        InkWell(
-                                            onTap: () =>
-                                                Navigator.pushReplacement(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const Login()),
-                                                ),
-                                            child: const AutoSizeText(
-                                              " Sign in",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: cherry,
-                                                  fontWeight: FontWeight.w800),
-                                            )),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ))
-                        ],
-                      ),
-                    ),
-                  ),
+                Image.asset(
+                  'assets/images/cherry_merah.png',
+                  height: 30,
+                  width: 30,
                 ),
-              ),
-            ],
-          ),
-        ),
+                const SizedBox(
+                  width: 5,
+                ),
+                const AutoSizeText(
+                  'Cherry Ticket',
+                  style: TextStyle(
+                      fontSize: 15, color: cherry, fontWeight: FontWeight.w700),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                SizedBox(
+                  width: 18,
+                ),
+                AutoSizeText(
+                  'News',
+                  style: TextStyle(
+                      fontSize: 10, color: indigo, fontWeight: FontWeight.w700),
+                ),
+                Spacer(),
+                AutoSizeText(
+                  'See All',
+                  style: TextStyle(
+                      fontSize: 10, color: cherry, fontWeight: FontWeight.w700),
+                ),
+                SizedBox(
+                  width: 18,
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            const BeritaView(),
+          ],
+        )),
       ),
     );
   }

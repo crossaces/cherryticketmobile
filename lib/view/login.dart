@@ -1,5 +1,7 @@
+import 'package:cherryticketmobile/components/progress_hud.dart';
 import 'package:cherryticketmobile/model/auth_model.dart';
 import 'package:cherryticketmobile/providerAPI/auth.dart';
+import 'package:cherryticketmobile/view/navigation.dart';
 import 'package:cherryticketmobile/view/register.dart';
 import 'package:cherryticketmobile/view/resend.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +37,11 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    return ProgressHUD(
+        child: _upInit(context), inAsyncCall: isApiCallProcess, opacity: 0.3);
+  }
+
+  Widget _upInit(BuildContext context) {
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       backgroundColor: gray,
@@ -228,32 +235,66 @@ class _LoginState extends State<Login> {
                                                   content: Text(
                                                       "${value['message']}"),
                                                 );
-                                                savePref(value['user']['id']);
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(snackBar);
+                                                savePref(value['user']['id']);
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             const Resend()));
                                               } else {
-                                                if (value['user']['role'] ==
-                                                    'Peserta') {
-                                                  if (value['message'] ==
-                                                      'Login Successfully') {
-                                                    final snackBar = SnackBar(
-                                                      duration: const Duration(
-                                                          seconds: 1),
-                                                      behavior: SnackBarBehavior
-                                                          .floating,
-                                                      backgroundColor:
-                                                          Colors.green[800],
-                                                      content: Text(
-                                                          "${value['message']}"),
-                                                    );
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(snackBar);
+                                                if (value['message'] !=
+                                                    'Login Failed') {
+                                                  if (value['user']['role'] ==
+                                                      'Peserta') {
+                                                    if (value['message'] ==
+                                                        'Login Successfully') {
+                                                      final snackBar = SnackBar(
+                                                        duration:
+                                                            const Duration(
+                                                                seconds: 1),
+                                                        behavior:
+                                                            SnackBarBehavior
+                                                                .floating,
+                                                        backgroundColor:
+                                                            Colors.green[800],
+                                                        content: Text(
+                                                            "${value['message']}"),
+                                                      );
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                              snackBar);
+                                                      saveLogin(
+                                                          value['user']
+                                                              ['ID_USER'],
+                                                          value['user']
+                                                              ['ID_PESERTA'],
+                                                          value['token']);
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  const NavigationBottom()));
+                                                    } else {
+                                                      final snackBar = SnackBar(
+                                                        duration:
+                                                            const Duration(
+                                                                seconds: 1),
+                                                        behavior:
+                                                            SnackBarBehavior
+                                                                .floating,
+                                                        backgroundColor:
+                                                            Colors.red[800],
+                                                        content: Text(
+                                                            "${value['message']}"),
+                                                      );
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                              snackBar);
+                                                    }
                                                   } else {
                                                     final snackBar = SnackBar(
                                                       duration: const Duration(
@@ -262,8 +303,8 @@ class _LoginState extends State<Login> {
                                                           .floating,
                                                       backgroundColor:
                                                           Colors.red[800],
-                                                      content: Text(
-                                                          "${value['message']}"),
+                                                      content: const Text(
+                                                          "Only Customer Account"),
                                                     );
                                                     ScaffoldMessenger.of(
                                                             context)
@@ -277,8 +318,8 @@ class _LoginState extends State<Login> {
                                                         .floating,
                                                     backgroundColor:
                                                         Colors.red[800],
-                                                    content: const Text(
-                                                        "Only Customer Account"),
+                                                    content: Text(
+                                                        "${value['message']}"),
                                                   );
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(snackBar);
