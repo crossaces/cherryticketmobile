@@ -1,8 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/providerAPI/berita.dart';
-import 'package:cherryticketmobile/view/list/item/beritaitem.dart';
-import 'package:cherryticketmobile/view/list/item/shimer.dart';
+import 'package:cherryticketmobile/view/list/item/berita_item.dart';
+import 'package:cherryticketmobile/view/list/item/shimer_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,13 +38,13 @@ class BeritaList extends StatelessWidget {
             enlargeCenterPage: true,
             autoPlayInterval: const Duration(seconds: 2),
             enableInfiniteScroll: true,
-            height: 150,
-            autoPlayAnimationDuration: const Duration(milliseconds: 200),
+            height: 140,
+            autoPlayAnimationDuration: const Duration(milliseconds: 150),
             autoPlayCurve: Curves.fastOutSlowIn,
             viewportFraction: 0.7),
         itemCount: berita.isNotEmpty ? berita.length : 5,
         itemBuilder: berita.isEmpty
-            ? (context, index, realindex) => const ShimmerItem(200)
+            ? (context, index, realindex) => const ShimmerItem(220, 300)
             : (context, index, realindex) => BeritaItem(berita[index]));
   }
 }

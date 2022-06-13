@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:cherryticketmobile/model/auth_model.dart';
 import 'package:cherryticketmobile/components/data.dart';
+import 'package:cherryticketmobile/model/peserta_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class APIService {
@@ -44,6 +47,25 @@ class APIService {
     }
   }
 
+  Future<dynamic> updateToken(int id, String token, String bearer) async {
+    Uri url = Uri.parse(api + 'ptoken/' + id.toString());
+
+    var response = await http.put(
+      url,
+      body: json.encode({'token': token}),
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $bearer'
+      },
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return json.decode(response.body);
+    }
+  }
+
   Future<dynamic> login(LoginRequestModel requestModel) async {
     Uri url = Uri.parse(api + 'login');
 
@@ -60,5 +82,100 @@ class APIService {
     } else {
       return json.decode(response.body);
     }
+  }
+
+  Future<dynamic> gantipassword(PasswordRequestModel requestModel) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    String token = prefs.getString('token') ?? '0';
+    int id = prefs.getInt('iduser') ?? '0';
+    Uri url = Uri.parse(api + 'changepass/' + id.toString());
+    var response = await http.put(
+      url,
+      body: json.encode({
+        'lastpassword': requestModel.passwordlama,
+        'newpassword': requestModel.password,
+        'cpassword': requestModel.cpassword
+      }),
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return json.decode(response.body);
+    }
+  }
+
+  Future<dynamic> changeprofile(Peserta requestModel) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    String token = prefs.getString('token') ?? '0';
+    int id = prefs.getInt('iduser') ?? '0';
+    Uri url = Uri.parse(api + 'peserta/' + id.toString());
+    var response = await http.put(
+      url,
+      body: json.encode({
+        'no_hp': requestModel.nohp,
+        'nama_depan': requestModel.namadepan,
+        'nama_belakang': requestModel.namabelakang,
+        'alamat': requestModel.alamat
+      }),
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return json.decode(response.body);
+    }
+  }
+
+  Future<dynamic> changepicture(File image) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    String token = prefs.getString('token') ?? '0';
+    int id = prefs.getInt('idpeserta') ?? '0';
+    // Uri url = Uri.parse(api + 'pgambar/' + id.toString());
+    // var response = await http.post(
+    //   url,
+    //   body: json.encode({
+    //     'gambar': image.readAsBytesSync(),
+    //   }),
+    //   headers: {
+    //     'Content-type': 'application/json',
+    //     'Accept': 'application/json',
+    //     'Authorization': 'Bearer $token'
+    //   },
+    // );
+    // if (response.statusCode == 200) {
+    //   return json.decode(response.body);
+    // } else {
+    //   return json.decode(response.body);
+    // }
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse(api + 'pgambar/' + id.toString()),
+    );
+    Map<String, String> headers = {
+      "Authorization": "Bearer $token",
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+    request.headers.addAll(headers);
+    final httpImage = http.MultipartFile.fromBytes(
+        'gambar', image.readAsBytesSync(),
+        contentType: MediaType('image', 'jpeg,png,jpg'), filename: 'image.png');
+    request.files.add(httpImage);
+    request.headers.addAll(headers);
+
+    var res = await request.send();
+    return res.statusCode;
   }
 }

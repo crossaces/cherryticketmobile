@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "586839165245",
+    "project_id": "cherry-ticket",
+    "storage_bucket": "cherry-ticket.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586839165245:android:5e6ff20b7683d66dc41d54",
+        "android_client_info": {
+          "package_name": "com.cherryticket.cherryticketmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586839165245-pglnl2dae5e8u6tcbqh0e7autkeiqrp3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo-xGrE-t-kUvi4RlM5Kzh6hycYWVrN1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586839165245-pglnl2dae5e8u6tcbqh0e7autkeiqrp3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

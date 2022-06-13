@@ -1,10 +1,12 @@
 import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/providerAPI/berita.dart';
+import 'package:cherryticketmobile/providerAPI/event.dart';
+import 'package:cherryticketmobile/providerAPI/genre.dart';
+import 'package:cherryticketmobile/providerAPI/kota.dart';
 import 'package:cherryticketmobile/view/event.dart';
 import 'package:cherryticketmobile/view/home.dart';
 import 'package:cherryticketmobile/view/profile.dart';
 import 'package:cherryticketmobile/view/transaction.dart';
-
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar_theme.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +26,10 @@ class _NavigationBottomState extends State<NavigationBottom> {
   @override
   void initState() {
     super.initState();
+    Provider.of<GenreAPI>(context, listen: false).fetch();
     Provider.of<BeritaAPI>(context, listen: false).fetchberita();
+    Provider.of<EventAPI>(context, listen: false).fetch();
+    Provider.of<KotaAPI>(context, listen: false).fetch();
     setState(() {
       _listScreens = [
         const HomeScreen(),

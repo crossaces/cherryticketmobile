@@ -37,3 +37,25 @@ class LoginRequestModel {
     return map;
   }
 }
+
+class PasswordRequestModel {
+  String passwordlama;
+  String password;
+  String cpassword;
+
+  PasswordRequestModel({
+    this.passwordlama,
+    this.password,
+    this.cpassword,
+  });
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'lastpassword': passwordlama,
+      'newpassword': password,
+      'cpassword': cpassword,
+    };
+
+    return map;
+  }
+}

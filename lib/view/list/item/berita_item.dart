@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cherryticketmobile/components/data.dart';
 import 'package:cherryticketmobile/model/berita_model.dart';
+import 'package:cherryticketmobile/view/berita_screen.dart';
 import 'package:flutter/material.dart';
 
 class BeritaItem extends StatelessWidget {
@@ -12,7 +13,7 @@ class BeritaItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: Hero(
-          tag: beritadata.idberita,
+          tag: beritadata.gambarberita,
           child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
@@ -30,7 +31,7 @@ class BeritaItem extends StatelessWidget {
                   padding: const EdgeInsets.all(5),
                   width: double.infinity,
                   decoration: const BoxDecoration(
-                    color: Colors.black12,
+                    color: Colors.black38,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(12),
                       bottomRight: Radius.circular(12),
@@ -41,22 +42,22 @@ class BeritaItem extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       decoration: TextDecoration.none,
-                      fontSize: 13,
                       fontWeight: FontWeight.w700,
                       color: Colors.white,
                     ),
                     maxLines: 1,
+                    maxFontSize: 13,
                   ),
                 ),
               ],
             ),
           )),
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) => BeritaScreen(beritadata.idberita)),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BeritaScreen(beritadata.idberita)),
+        );
       },
     );
   }

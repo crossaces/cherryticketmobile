@@ -10,7 +10,7 @@ class BeritaAPI with ChangeNotifier {
   List<Berita> _items = [];
 
   List<Berita> get items {
-    return [..._items];
+    return _items;
   }
 
   Berita findById(int idberita) {

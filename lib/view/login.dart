@@ -4,6 +4,7 @@ import 'package:cherryticketmobile/providerAPI/auth.dart';
 import 'package:cherryticketmobile/view/navigation.dart';
 import 'package:cherryticketmobile/view/register.dart';
 import 'package:cherryticketmobile/view/resend.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cherryticketmobile/components/color.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -21,6 +22,7 @@ class _LoginState extends State<Login> {
   final _form = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var passController = TextEditingController();
+  String token = "";
   bool isApiCallProcess = false;
   LoginRequestModel requestModel;
   void _togglePasswordVisibility() {
@@ -31,6 +33,12 @@ class _LoginState extends State<Login> {
 
   @override
   void initState() {
+    FirebaseMessaging.instance.getToken().then((value) {
+      setState(() {
+        token = value;
+      });
+    });
+
     requestModel = LoginRequestModel();
     super.initState();
   }
@@ -250,6 +258,13 @@ class _LoginState extends State<Login> {
                                                       'Peserta') {
                                                     if (value['message'] ==
                                                         'Login Successfully') {
+                                                      APIService apiService =
+                                                          APIService();
+                                                      apiService.updateToken(
+                                                          value['user']
+                                                              ['ID_PESERTA'],
+                                                          token,
+                                                          value['token']);
                                                       final snackBar = SnackBar(
                                                         duration:
                                                             const Duration(
