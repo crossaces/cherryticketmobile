@@ -1,4 +1,4 @@
-import 'package:cherryticketmobile/providerAPI/genre.dart';
+import 'package:cherryticketmobile/providerAPI/genre_api.dart';
 import 'package:cherryticketmobile/view/list/item/genre_item.dart';
 import 'package:cherryticketmobile/view/list/item/shimer_item.dart';
 import 'package:flutter/cupertino.dart';

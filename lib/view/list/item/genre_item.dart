@@ -2,8 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/components/data.dart';
 import 'package:cherryticketmobile/model/genre_model.dart';
-import 'package:cherryticketmobile/providerAPI/event.dart';
-import 'package:cherryticketmobile/providerAPI/genre.dart';
+import 'package:cherryticketmobile/providerAPI/event_api.dart';
+import 'package:cherryticketmobile/providerAPI/genre_api.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

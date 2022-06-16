@@ -9,11 +9,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class EventAPI with ChangeNotifier {
   List<Event> _items = [];
+  List<Event> tempitem = [];
   String namagenre = 'All';
   String search = "";
 
   String get searchvalue {
     return search;
+  }
+
+  void initTiket(int idtiket, int idevent) {
+    _items
+        .firstWhere((event) => event.idevent == idevent)
+        .tiket
+        .firstWhere((tiket) => tiket.idtiket == idtiket)
+        .jumlahbeli = 0;
   }
 
   void searchinit(String value) {
@@ -25,8 +34,34 @@ class EventAPI with ChangeNotifier {
     return namagenre;
   }
 
+  int jumlahBeli(int idtiket, int idevent) {
+    return _items[_items.indexWhere((event) => event.idevent == idevent)]
+        .tiket[_items[_items.indexWhere((event) => event.idevent == idevent)]
+            .tiket
+            .indexWhere((tiket) => tiket.idtiket == idtiket)]
+        .jumlahbeli;
+  }
+
   void initNamaGenre(String genre) {
     namagenre = genre;
+    notifyListeners();
+  }
+
+  void plusTiket(int idtiket, int idevent) {
+    _items
+        .firstWhere((event) => event.idevent == idevent)
+        .tiket
+        .firstWhere((tiket) => tiket.idtiket == idtiket)
+        .jumlahbeli += 1;
+    notifyListeners();
+  }
+
+  void minusTiket(int idtiket, int idevent) {
+    final indexevent = _items.indexWhere((event) => event.idevent == idevent);
+    _items[indexevent]
+        .tiket
+        .firstWhere((tiket) => tiket.idtiket == idtiket)
+        .jumlahbeli--;
     notifyListeners();
   }
 
@@ -103,7 +138,9 @@ class EventAPI with ChangeNotifier {
                   json["tiket"].map((x) => Tiket.fromJson(x)))),
         ),
       );
+      tempitem = loadevent;
       _items = loadevent;
+
       notifyListeners();
     } catch (error) {
       rethrow;

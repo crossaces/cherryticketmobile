@@ -1,30 +1,21 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cherryticketmobile/components/color.dart';
-import 'package:cherryticketmobile/model/tiket_model.dart';
-import 'package:cherryticketmobile/providerAPI/jawabanpendaftaran.dart';
-import 'package:cherryticketmobile/view/formpendaftaran_screen.dart';
-import 'package:cherryticketmobile/view/list/tiket_list.dart';
+import 'package:cherryticketmobile/view/list/datapeserta_list.dart';
+import 'package:cherryticketmobile/view/list/pertanyaan_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class TicketScreen extends StatefulWidget {
-  final List<Tiket> ticket;
-  const TicketScreen(this.ticket, {Key key}) : super(key: key);
+class FPendaftaranScreen extends StatefulWidget {
+  const FPendaftaranScreen({Key key}) : super(key: key);
 
   @override
-  State<TicketScreen> createState() => _TicketScreenState();
+  State<FPendaftaranScreen> createState() => _FPendaftaranScreenState();
 }
 
-class _TicketScreenState extends State<TicketScreen>
+class _FPendaftaranScreenState extends State<FPendaftaranScreen>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    if (mounted) {
-      Provider.of<JawabanPendaftaran>(context, listen: false)
-          .initFormPeserta([]);
-    }
-
     super.initState();
   }
 
@@ -38,11 +29,15 @@ class _TicketScreenState extends State<TicketScreen>
               const SliverAppBar(
                 backgroundColor: indigo,
                 pinned: true,
-                title: Text("Ticket"),
+                title: Text("Form Register"),
               ),
               SliverList(
                 delegate: SliverChildListDelegate([
-                  TiketView(widget.ticket),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const DataPesertaView(),
+                  const PertanyaanView()
                 ]),
               ),
             ],
@@ -61,29 +56,11 @@ class _TicketScreenState extends State<TicketScreen>
                   size: 15.0,
                 ),
                 label: const AutoSizeText(
-                  'Choose',
+                  'Pay',
                   style: TextStyle(fontSize: 18, color: indigo),
                   maxLines: 1,
                 ),
-                onPressed: () {
-                  if (Provider.of<JawabanPendaftaran>(context, listen: false)
-                      .items
-                      .isEmpty) {
-                    final snackBar = SnackBar(
-                      duration: const Duration(seconds: 1),
-                      behavior: SnackBarBehavior.floating,
-                      backgroundColor: Colors.red[800],
-                      content: const Text("Minimal one ticket for continue"),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  } else {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const FPendaftaranScreen()),
-                    );
-                  }
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   primary: gray,
                   shape: RoundedRectangleBorder(

@@ -1,7 +1,5 @@
 import 'package:cherryticketmobile/components/color.dart';
-
-import 'package:cherryticketmobile/providerAPI/event.dart';
-import 'package:cherryticketmobile/providerAPI/peserta.dart';
+import 'package:cherryticketmobile/providerAPI/event_api.dart';
 import 'package:cherryticketmobile/view/eventshowitem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cherryticketmobile/providerAPI/berita.dart';
+import 'package:cherryticketmobile/providerAPI/berita_api.dart';
 import 'package:cherryticketmobile/view/list/item/berita_item.dart';
 import 'package:cherryticketmobile/view/list/item/shimer_item.dart';
 import 'package:flutter/cupertino.dart';

@@ -1,8 +1,8 @@
 import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/components/progress_hud.dart';
 import 'package:cherryticketmobile/model/peserta_model.dart';
-import 'package:cherryticketmobile/providerAPI/auth.dart';
-import 'package:cherryticketmobile/providerAPI/peserta.dart';
+import 'package:cherryticketmobile/providerAPI/auth_api.dart';
+import 'package:cherryticketmobile/providerAPI/peserta_api.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

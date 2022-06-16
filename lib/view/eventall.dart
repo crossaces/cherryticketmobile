@@ -1,6 +1,6 @@
 import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/components/geteventprivate.dart';
-import 'package:cherryticketmobile/providerAPI/event.dart';
+import 'package:cherryticketmobile/providerAPI/event_api.dart';
 import 'package:cherryticketmobile/view/list/eventall_list.dart';
 import 'package:cherryticketmobile/view/list/genre_list.dart';
 import 'package:flutter/cupertino.dart';

@@ -1,7 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/components/data.dart';
-import 'package:cherryticketmobile/providerAPI/event.dart';
+import 'package:cherryticketmobile/providerAPI/event_api.dart';
+import 'package:cherryticketmobile/providerAPI/form_pendaftaran_api.dart';
 import 'package:cherryticketmobile/view/googlemap.dart';
 import 'package:cherryticketmobile/view/ticket_screen.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ import 'package:intl/intl.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EventShowItem extends StatefulWidget {
@@ -29,16 +29,19 @@ class _EventShowItemState extends State<EventShowItem>
   double lng;
   @override
   void initState() {
+    Provider.of<FormPendaftaranAPI>(context, listen: false)
+        .fetch(widget.idevent);
+    tabController = TabController(length: 2, initialIndex: 0, vsync: this);
     setState(() {
-      tabController = TabController(length: 2, initialIndex: 0, vsync: this);
       _location = Location();
     });
-
     _location.onLocationChanged.listen((event) {
-      setState(() {
-        lng = event.longitude;
-        lat = event.latitude;
-      });
+      if (mounted) {
+        setState(() {
+          lng = event.longitude;
+          lat = event.latitude;
+        });
+      }
     });
     super.initState();
   }
@@ -391,37 +394,37 @@ class _EventShowItemState extends State<EventShowItem>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Visibility(
-                visible: loadEvent.modeevent != 'Offline' ? true : false,
-                child: ElevatedButton.icon(
-                  icon: const Icon(
-                    Icons.link,
-                    color: white,
-                    size: 15.0,
-                  ),
-                  label: const AutoSizeText(
-                    'Link',
-                    style: TextStyle(fontSize: 18, color: white),
-                    maxLines: 1,
-                  ),
-                  onPressed: () {
-                    Clipboard.setData(ClipboardData(text: loadEvent.url));
-                    final snackBar = SnackBar(
-                      duration: const Duration(seconds: 1),
-                      behavior: SnackBarBehavior.floating,
-                      backgroundColor: Colors.green[800],
-                      content: const Text("Link Save To Clipboard"),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue[900],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                ),
-              ),
+              // Visibility(
+              //   visible: loadEvent.modeevent != 'Offline' ? true : false,
+              //   child: ElevatedButton.icon(
+              //     icon: const Icon(
+              //       Icons.link,
+              //       color: white,
+              //       size: 15.0,
+              //     ),
+              //     label: const AutoSizeText(
+              //       'Link',
+              //       style: TextStyle(fontSize: 18, color: white),
+              //       maxLines: 1,
+              //     ),
+              //     onPressed: () {
+              //       Clipboard.setData(ClipboardData(text: loadEvent.url));
+              //       final snackBar = SnackBar(
+              //         duration: const Duration(seconds: 1),
+              //         behavior: SnackBarBehavior.floating,
+              //         backgroundColor: Colors.green[800],
+              //         content: const Text("Link Save To Clipboard"),
+              //       );
+              //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              //     },
+              //     style: ElevatedButton.styleFrom(
+              //       primary: Colors.blue[900],
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(5.0),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Visibility(
                 visible: loadEvent.modeevent != 'Offline' ? true : false,
                 child: const Spacer(),

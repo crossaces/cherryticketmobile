@@ -4,6 +4,7 @@ class Tiket {
   final String fasilitas;
   final int harga;
   final int stok;
+  int jumlahbeli;
   final String tglmulaipenjualan;
   final String tglselesaipenjualan;
   final int idevent;
@@ -13,6 +14,7 @@ class Tiket {
       this.namatiket,
       this.fasilitas,
       this.harga,
+      this.jumlahbeli,
       this.stok,
       this.tglmulaipenjualan,
       this.tglselesaipenjualan,
@@ -25,6 +27,7 @@ class Tiket {
         fasilitas: json['FASILITAS'].toString(),
         harga: json['HARGA'],
         stok: json['STOK'],
+        jumlahbeli: 0,
         tglmulaipenjualan: json['TGL_MULAI PENJUALAN'].toString(),
         tglselesaipenjualan: json['TGL_SELESAI_PENJUALAN'].toString(),
         idevent: json['ID_EVENT']);

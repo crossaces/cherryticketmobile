@@ -1,5 +1,5 @@
 import 'package:cherryticketmobile/model/event_model.dart';
-import 'package:cherryticketmobile/providerAPI/event.dart';
+import 'package:cherryticketmobile/providerAPI/event_api.dart';
 import 'package:cherryticketmobile/view/list/item/event_item_home.dart';
 import 'package:cherryticketmobile/view/list/item/shimer_item.dart';
 import 'package:flutter/cupertino.dart';

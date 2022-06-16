@@ -84,9 +84,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: indigo,
                           fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
-                      width: 18,
-                    ),
                   ],
                 ),
                 const SizedBox(

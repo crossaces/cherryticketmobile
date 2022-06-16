@@ -1,9 +1,11 @@
 import 'package:cherryticketmobile/components/color.dart';
-import 'package:cherryticketmobile/providerAPI/berita.dart';
-import 'package:cherryticketmobile/providerAPI/kota.dart';
-import 'package:cherryticketmobile/providerAPI/event.dart';
-import 'package:cherryticketmobile/providerAPI/genre.dart';
-import 'package:cherryticketmobile/providerAPI/peserta.dart';
+import 'package:cherryticketmobile/providerAPI/berita_api.dart';
+import 'package:cherryticketmobile/providerAPI/form_pendaftaran_api.dart';
+import 'package:cherryticketmobile/providerAPI/jawabanpendaftaran.dart';
+import 'package:cherryticketmobile/providerAPI/kota_api.dart';
+import 'package:cherryticketmobile/providerAPI/event_api.dart';
+import 'package:cherryticketmobile/providerAPI/genre_api.dart';
+import 'package:cherryticketmobile/providerAPI/peserta_api.dart';
 import 'package:cherryticketmobile/view/getstarted.dart';
 import 'package:cherryticketmobile/view/navigation.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -86,6 +88,10 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider<EventAPI>(create: (_) => EventAPI()),
           ChangeNotifierProvider<KotaAPI>(create: (_) => KotaAPI()),
           ChangeNotifierProvider<PesertaAPI>(create: (_) => PesertaAPI()),
+          ChangeNotifierProvider<FormPendaftaranAPI>(
+              create: (_) => FormPendaftaranAPI()),
+          ChangeNotifierProvider<JawabanPendaftaran>(
+              create: (_) => JawabanPendaftaran()),
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,

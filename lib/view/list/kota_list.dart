@@ -1,4 +1,4 @@
-import 'package:cherryticketmobile/providerAPI/kota.dart';
+import 'package:cherryticketmobile/providerAPI/kota_api.dart';
 import 'package:cherryticketmobile/view/list/item/kota_item.dart';
 import 'package:cherryticketmobile/view/list/item/shimer_item.dart';
 import 'package:flutter/cupertino.dart';

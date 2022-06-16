@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/components/data.dart';
-import 'package:cherryticketmobile/providerAPI/berita.dart';
+import 'package:cherryticketmobile/providerAPI/berita_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';

@@ -1,5 +1,5 @@
 import 'package:cherryticketmobile/model/auth_model.dart';
-import 'package:cherryticketmobile/providerAPI/auth.dart';
+import 'package:cherryticketmobile/providerAPI/auth_api.dart';
 import 'package:cherryticketmobile/view/resend.dart';
 import 'package:flutter/material.dart';
 import 'package:cherryticketmobile/components/color.dart';

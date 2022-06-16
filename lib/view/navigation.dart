@@ -1,8 +1,8 @@
 import 'package:cherryticketmobile/components/color.dart';
-import 'package:cherryticketmobile/providerAPI/berita.dart';
-import 'package:cherryticketmobile/providerAPI/event.dart';
-import 'package:cherryticketmobile/providerAPI/genre.dart';
-import 'package:cherryticketmobile/providerAPI/kota.dart';
+import 'package:cherryticketmobile/providerAPI/berita_api.dart';
+import 'package:cherryticketmobile/providerAPI/event_api.dart';
+import 'package:cherryticketmobile/providerAPI/genre_api.dart';
+import 'package:cherryticketmobile/providerAPI/kota_api.dart';
 import 'package:cherryticketmobile/view/event.dart';
 import 'package:cherryticketmobile/view/home.dart';
 import 'package:cherryticketmobile/view/profile.dart';
