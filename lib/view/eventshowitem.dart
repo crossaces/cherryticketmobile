@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/components/data.dart';
+import 'package:cherryticketmobile/model/formpendaftaran_model.dart';
 import 'package:cherryticketmobile/providerAPI/event_api.dart';
 import 'package:cherryticketmobile/providerAPI/form_pendaftaran_api.dart';
 import 'package:cherryticketmobile/view/googlemap.dart';
@@ -10,7 +11,9 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:location/location.dart';
+
 import 'package:provider/provider.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class EventShowItem extends StatefulWidget {
@@ -25,6 +28,7 @@ class _EventShowItemState extends State<EventShowItem>
     with SingleTickerProviderStateMixin {
   TabController tabController;
   Location _location;
+  Formpendaftaran data;
   double lat;
   double lng;
   @override

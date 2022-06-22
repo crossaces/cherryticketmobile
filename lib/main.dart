@@ -1,4 +1,5 @@
 import 'package:cherryticketmobile/components/color.dart';
+import 'package:cherryticketmobile/model/formpendaftaran_model.dart';
 import 'package:cherryticketmobile/providerAPI/berita_api.dart';
 import 'package:cherryticketmobile/providerAPI/form_pendaftaran_api.dart';
 import 'package:cherryticketmobile/providerAPI/jawabanpendaftaran.dart';

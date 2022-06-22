@@ -1,7 +1,7 @@
 import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/components/progress_hud.dart';
 import 'package:cherryticketmobile/model/auth_model.dart';
-import 'package:cherryticketmobile/providerAPI/auth_api.dart';
+import 'package:cherryticketmobile/providerAPI/api_service.dart';
 import 'package:flutter/material.dart';
 
 class ChangePassword extends StatefulWidget {

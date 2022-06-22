@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cherryticketmobile/model/auth_model.dart';
 import 'package:cherryticketmobile/components/data.dart';
+import 'package:cherryticketmobile/model/formpendaftaran_model.dart';
 import 'package:cherryticketmobile/model/peserta_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -110,6 +111,33 @@ class APIService {
     }
   }
 
+  Future<dynamic> createTransaksi(
+      List<Jawaban> jawaban, List<Order> order) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    String token = prefs.getString('token') ?? '0';
+    int id = prefs.getInt('idpeserta') ?? '0';
+    Uri url = Uri.parse(api + 'transaksi');
+    var response = await http.post(
+      url,
+      body: json.encode({
+        'jawaban': jawaban.map((tag) => tag.toJson()).toList(),
+        'order': order.map((tag) => tag.toJson()).toList(),
+        'idpeserta': id
+      }),
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return json.decode(response.body);
+    }
+  }
+
   Future<dynamic> changeprofile(Peserta requestModel) async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -142,23 +170,6 @@ class APIService {
 
     String token = prefs.getString('token') ?? '0';
     int id = prefs.getInt('idpeserta') ?? '0';
-    // Uri url = Uri.parse(api + 'pgambar/' + id.toString());
-    // var response = await http.post(
-    //   url,
-    //   body: json.encode({
-    //     'gambar': image.readAsBytesSync(),
-    //   }),
-    //   headers: {
-    //     'Content-type': 'application/json',
-    //     'Accept': 'application/json',
-    //     'Authorization': 'Bearer $token'
-    //   },
-    // );
-    // if (response.statusCode == 200) {
-    //   return json.decode(response.body);
-    // } else {
-    //   return json.decode(response.body);
-    // }
     var request = http.MultipartRequest(
       'POST',
       Uri.parse(api + 'pgambar/' + id.toString()),

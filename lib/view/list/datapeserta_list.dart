@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cherryticketmobile/providerAPI/jawabanpendaftaran.dart';
 import 'package:cherryticketmobile/view/list/item/jumlahpeserta_item.dart';
@@ -38,30 +36,25 @@ class _DataPesertaListState extends State<DataPesertaList> {
   @override
   @override
   Widget build(BuildContext context) {
-    final dataLists = Provider.of<JawabanPendaftaran>(context);
-    final data = dataLists.items.length;
+    final dataLists = Provider.of<JawabanPendaftaran>(context, listen: false);
+    final data = dataLists.items ?? [];
 
     return CarouselSlider.builder(
-        options: CarouselOptions(
-            reverse: true,
-            height: 25,
-            enlargeCenterPage: true,
-            enableInfiniteScroll: true,
-            viewportFraction: 0.55,
-            onPageChanged: (index, reason) {
-              Provider.of<JawabanPendaftaran>(context, listen: false)
-                  .initCheck(true);
-              Provider.of<JawabanPendaftaran>(context, listen: false)
-                  .changeindex(index);
-              print(index);
-              print(Provider.of<JawabanPendaftaran>(context, listen: false)
-                  .returnJawaban(index)[0]
-                  .jawaban);
-              print(Provider.of<JawabanPendaftaran>(context, listen: false)
-                  .returnJawaban(index)[1]
-                  .jawaban);
-            }),
-        itemCount: data,
-        itemBuilder: (context, index, realindex) => DataPesertaItem(index));
+      options: CarouselOptions(
+          height: 25,
+          enlargeCenterPage: true,
+          enableInfiniteScroll: true,
+          viewportFraction: 0.55,
+          onPageChanged: (index, reason) {
+            Provider.of<JawabanPendaftaran>(context, listen: false)
+                .initCheck(true);
+            Provider.of<JawabanPendaftaran>(context, listen: false)
+                .changeindex(index);
+          }),
+      itemCount: data.isNotEmpty ? data.length : 6,
+      itemBuilder: data.isNotEmpty
+          ? (context, index, realindex) => DataPesertaItem(data[index], index)
+          : (context, index, realindex) => const ShimmerItem(40, 200),
+    );
   }
 }

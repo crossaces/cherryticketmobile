@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/model/formpendaftaran_model.dart';
@@ -23,9 +21,15 @@ class TiketItem extends StatefulWidget {
 class _TiketItemState extends State<TiketItem> {
   String harga = "";
   NumberFormat currencyFormatter;
-
+  List<Pertanyaan> data;
   @override
   void initState() {
+    setState(() {
+      data = Provider.of<FormPendaftaranAPI>(context, listen: false)
+          .items
+          .datapertanyaan;
+    });
+
     setState(() {
       Provider.of<EventAPI>(context, listen: false)
           .initTiket(widget.data.idtiket, widget.data.idevent);
@@ -35,16 +39,28 @@ class _TiketItemState extends State<TiketItem> {
         decimalDigits: 2,
       );
     });
-
     super.initState();
+  }
+
+  List<Pertanyaan> init(List<Pertanyaan> data) {
+    List<Pertanyaan> temp = [];
+    for (var i = 0; i < data.length; i++) {
+      temp.add(Pertanyaan(
+          pertanyaan: data[i].pertanyaan,
+          jawaban: "",
+          type: data[i].type,
+          nomor: data[i].nomor,
+          options: data[i].options));
+    }
+
+    return temp;
   }
 
   @override
   Widget build(BuildContext context) {
     int batastiket =
         Provider.of<EventAPI>(context).findById(widget.data.idevent).batastiket;
-    List<Pertanyaan> jawaban =
-        Provider.of<FormPendaftaranAPI>(context).items.datapertanyaan;
+
     return Container(
       width: 200,
       margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 10),
@@ -122,12 +138,6 @@ class _TiketItemState extends State<TiketItem> {
                           Provider.of<JawabanPendaftaran>(context,
                                   listen: false)
                               .removeFormPeserta(widget.data.idtiket);
-                          print(jsonEncode(Provider.of<JawabanPendaftaran>(
-                                  context,
-                                  listen: false)
-                              .items
-                              .toList()
-                              .toString()));
                         }
                       },
                     ),
@@ -170,17 +180,39 @@ class _TiketItemState extends State<TiketItem> {
                                       widget.data.idtiket, widget.data.idevent);
                               Provider.of<JawabanPendaftaran>(context,
                                       listen: false)
-                                  .addFormPeserta(Jawaban(
-                                namatiket: widget.data.namatiket,
-                                datapertanyaan: jawaban,
-                                harga: widget.data.harga,
-                                idpeserta: 0,
-                                idtiket: widget.data.idtiket,
-                              ));
-                              print(Provider.of<JawabanPendaftaran>(context,
-                                      listen: false)
-                                  .items
-                                  .length);
+                                  .addFormPeserta(
+                                Jawaban(
+                                  fasilitas: widget.data.fasilitas,
+                                  namatiket: widget.data.namatiket,
+                                  idevent: widget.data.idevent,
+                                  datapertanyaan: init(data),
+                                  nomor: Provider.of<JawabanPendaftaran>(
+                                              context,
+                                              listen: false)
+                                          .items
+                                          .length +
+                                      1,
+                                  harga: widget.data.harga,
+                                  idpeserta: 0,
+                                  idtiket: widget.data.idtiket,
+                                ),
+                              );
+                              for (var i = 0;
+                                  i <
+                                      Provider.of<JawabanPendaftaran>(context,
+                                              listen: false)
+                                          .orders
+                                          .length;
+                                  i++) {
+                                print(Provider.of<JawabanPendaftaran>(context,
+                                        listen: false)
+                                    .orders[i]
+                                    .jumlah);
+                                print(Provider.of<JawabanPendaftaran>(context,
+                                        listen: false)
+                                    .orders[i]
+                                    .subtotal);
+                              }
                             } else {
                               final snackBar = SnackBar(
                                 duration: const Duration(seconds: 1),

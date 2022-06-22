@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cherryticketmobile/model/berita_model.dart';
 
-class BeritaAPI with ChangeNotifier {
+class BeritaAPI extends ChangeNotifier {
   List<Berita> _items = [];
 
   List<Berita> get items {

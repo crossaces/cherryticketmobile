@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class EventAPI with ChangeNotifier {
+class EventAPI extends ChangeNotifier {
   List<Event> _items = [];
   List<Event> tempitem = [];
   String namagenre = 'All';

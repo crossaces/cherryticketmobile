@@ -7,10 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class PertanyaanItem extends StatefulWidget {
+  final String idpeserta;
   final Pertanyaan data;
   final int index;
 
-  const PertanyaanItem(this.index, this.data, {Key key}) : super(key: key);
+  const PertanyaanItem(this.idpeserta, this.index, this.data, {Key key})
+      : super(key: key);
 
   @override
   State<PertanyaanItem> createState() => _PertanyaanItemState();
@@ -24,6 +26,15 @@ class _PertanyaanItemState extends State<PertanyaanItem> {
     super.initState();
   }
 
+  List<String> init(List<Options> data) {
+    List<String> temp = [];
+    for (var i = 0; i < data.length; i++) {
+      temp.add(data[i].option);
+    }
+
+    return temp;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,11 +46,17 @@ class _PertanyaanItemState extends State<PertanyaanItem> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(
+            height: 5,
+          ),
           Visibility(
               visible: widget.index == 0 ? true : false,
-              child: const AutoSizeText(
-                "Id Participant",
-                style: TextStyle(
+              child: AutoSizeText(
+                "Id Participant - " +
+                    (Provider.of<JawabanPendaftaran>(context, listen: false).i +
+                            1)
+                        .toString(),
+                style: const TextStyle(
                     fontSize: 15, color: indigo, fontWeight: FontWeight.w600),
               )),
           const SizedBox(
@@ -53,13 +70,8 @@ class _PertanyaanItemState extends State<PertanyaanItem> {
                 FilteringTextInputFormatter.digitsOnly
               ],
               controller:
-                  Provider.of<JawabanPendaftaran>(context, listen: false).checks
-                      ? TextEditingController(
-                          text: Provider.of<JawabanPendaftaran>(context,
-                                  listen: false)
-                              .returnIDPESERTA(Provider.of<JawabanPendaftaran>(
-                          context,
-                        ).i))
+                  Provider.of<JawabanPendaftaran>(context, listen: true).checks
+                      ? TextEditingController(text: widget.idpeserta)
                       : idpeserta,
               keyboardType: TextInputType.number,
               validator: (value) {
@@ -120,80 +132,128 @@ class _PertanyaanItemState extends State<PertanyaanItem> {
           const SizedBox(
             height: 5,
           ),
-          Visibility(
-            visible: widget.data.type == 'Dropdown' ? true : false,
-            child: TextFormField(
-              controller:
-                  Provider.of<JawabanPendaftaran>(context, listen: false).checks
-                      ? TextEditingController(
-                          text: Provider.of<JawabanPendaftaran>(context,
-                                  listen: false)
-                              .returnJawaban(Provider.of<JawabanPendaftaran>(
-                                      context,
-                                      listen: false)
-                                  .i)[widget.index]
-                              .jawaban)
+          widget.data.type != "Text"
+              ? const SizedBox(
+                  height: 0,
+                )
+              : TextFormField(
+                  controller: Provider.of<JawabanPendaftaran>(context).checks
+                      ? TextEditingController(text: widget.data.jawaban)
                       : pertanyaan,
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'This field must be fill';
-                }
-                return null;
-              },
-              onChanged: (input) {
-                if (Provider.of<JawabanPendaftaran>(context, listen: false)
-                        .checks !=
-                    false) {
-                  Provider.of<JawabanPendaftaran>(context, listen: false)
-                      .initCheck(false);
-                } else {
-                  if (input.isEmpty) {
-                    Provider.of<JawabanPendaftaran>(context, listen: false)
-                        .isiPertanyaan(
-                            Provider.of<JawabanPendaftaran>(context,
-                                    listen: false)
-                                .i,
-                            widget.index,
-                            "");
-                  } else {
-                    Provider.of<JawabanPendaftaran>(context, listen: false)
-                        .isiPertanyaan(
-                            Provider.of<JawabanPendaftaran>(context,
-                                    listen: false)
-                                .i,
-                            widget.index,
-                            input);
-                  }
-                }
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'This field must be fill';
+                    }
+                    return null;
+                  },
+                  onChanged: (input) {
+                    if (Provider.of<JawabanPendaftaran>(context, listen: false)
+                            .checks !=
+                        false) {
+                      Provider.of<JawabanPendaftaran>(context, listen: false)
+                          .initCheck(false);
+                    }
 
-                print(
-                  Provider.of<JawabanPendaftaran>(context, listen: false)
-                          .returnJawaban(0)[widget.index]
-                          .jawaban +
-                      ' ' +
-                      'formpertama',
-                );
-                print(Provider.of<JawabanPendaftaran>(context, listen: false)
-                        .returnJawaban(1)[widget.index]
-                        .jawaban +
-                    ' ' +
-                    'formkedua');
-              },
-              autofocus: false,
-              cursorColor: Colors.black,
-              decoration: InputDecoration(
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(10.0)),
-                hintText: 'Question - ' + (widget.index + 1).toString(),
-                labelStyle: const TextStyle(color: divider),
-              ),
-            ),
-          ),
+                    Provider.of<JawabanPendaftaran>(context, listen: false)
+                        .isiPertanyaan(widget.index, input);
+                  },
+                  autofocus: false,
+                  cursorColor: Colors.black,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 5.0, horizontal: 10.0),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(10.0)),
+                    hintText: 'Question - ' + (widget.index + 1).toString(),
+                    labelStyle: const TextStyle(color: divider),
+                  ),
+                ),
+          widget.data.type != "Dropdown"
+              ? const SizedBox(
+                  height: 0,
+                )
+              : DropdownButtonFormField(
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'This field must be fill';
+                    }
+                    return null;
+                  },
+                  onChanged: (input) {
+                    if (Provider.of<JawabanPendaftaran>(context, listen: false)
+                            .checks !=
+                        false) {
+                      Provider.of<JawabanPendaftaran>(context, listen: false)
+                          .initCheck(false);
+                    }
+
+                    Provider.of<JawabanPendaftaran>(context, listen: false)
+                        .isiPertanyaan(widget.index, input);
+                  },
+                  value: widget.data.jawaban.toString() == ""
+                      ? pertanyaan
+                      : widget.data.jawaban,
+                  autofocus: false,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 5.0, horizontal: 10.0),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(10.0)),
+                    hintText: 'Question - ' + (widget.index + 1).toString(),
+                    labelStyle: const TextStyle(color: divider),
+                  ),
+                  items: widget.data.options.map((e) {
+                    return DropdownMenuItem<Object>(
+                        value: e.option,
+                        child: Text(
+                            e.option.toString() == "null" ? "" : e.option,
+                            style: const TextStyle(color: indigo)));
+                  }).toList()),
+          widget.data.type != "Double Choice"
+              ? const SizedBox(
+                  height: 0,
+                )
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: widget.data.options
+                      .map((data) => RadioListTile(
+                            contentPadding: const EdgeInsets.all(0),
+                            activeColor: cherry,
+                            title: Text(
+                              data.option.toString() == "null"
+                                  ? "heheheh"
+                                  : data.option,
+                              style: const TextStyle(
+                                  color: indigo,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14),
+                            ),
+                            groupValue: widget.data.jawaban,
+                            value: data.option,
+                            onChanged: (value) {
+                              if (Provider.of<JawabanPendaftaran>(context,
+                                          listen: false)
+                                      .checks !=
+                                  false) {
+                                Provider.of<JawabanPendaftaran>(context,
+                                        listen: false)
+                                    .initCheck(false);
+                              }
+
+                              Provider.of<JawabanPendaftaran>(context,
+                                      listen: false)
+                                  .isiPertanyaan(widget.index, value);
+                            },
+                          ))
+                      .toList(),
+                ),
         ],
       ),
     );

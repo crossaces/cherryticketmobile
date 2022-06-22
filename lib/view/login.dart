@@ -1,6 +1,6 @@
 import 'package:cherryticketmobile/components/progress_hud.dart';
 import 'package:cherryticketmobile/model/auth_model.dart';
-import 'package:cherryticketmobile/providerAPI/auth_api.dart';
+import 'package:cherryticketmobile/providerAPI/api_service.dart';
 import 'package:cherryticketmobile/view/navigation.dart';
 import 'package:cherryticketmobile/view/register.dart';
 import 'package:cherryticketmobile/view/resend.dart';

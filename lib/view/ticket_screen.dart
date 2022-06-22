@@ -20,10 +20,7 @@ class _TicketScreenState extends State<TicketScreen>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    if (mounted) {
-      Provider.of<JawabanPendaftaran>(context, listen: false)
-          .initFormPeserta([]);
-    }
+    Provider.of<JawabanPendaftaran>(context, listen: false).initFormPeserta([]);
 
     super.initState();
   }
@@ -85,6 +82,7 @@ class _TicketScreenState extends State<TicketScreen>
                   }
                 },
                 style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   primary: gray,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),

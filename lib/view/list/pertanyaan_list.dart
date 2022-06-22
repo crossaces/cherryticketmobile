@@ -37,9 +37,17 @@ class PertanyaanList extends StatefulWidget {
 class _PertanyaanListState extends State<PertanyaanList> {
   @override
   Widget build(BuildContext context) {
-    List<Pertanyaan> pertanyaan = Provider.of<JawabanPendaftaran>(context)
-        .returnPertanyaan(Provider.of<JawabanPendaftaran>(context).i);
-
+    List<Pertanyaan> pertanyaan =
+        Provider.of<JawabanPendaftaran>(context).returnDataPertanyaan();
+    String idpeserta = Provider.of<JawabanPendaftaran>(context)
+                .items[Provider.of<JawabanPendaftaran>(context).i]
+                .idpeserta ==
+            0
+        ? ""
+        : Provider.of<JawabanPendaftaran>(context)
+            .items[Provider.of<JawabanPendaftaran>(context).i]
+            .idpeserta
+            .toString();
     return SizedBox(
       height: MediaQuery.of(context).size.height - 160,
       child: ListView.builder(
@@ -51,7 +59,8 @@ class _PertanyaanListState extends State<PertanyaanList> {
         padding: const EdgeInsets.all(10.0),
         itemCount: pertanyaan.isNotEmpty ? pertanyaan.length : 6,
         itemBuilder: pertanyaan.isNotEmpty
-            ? (ctx, index) => PertanyaanItem(index, pertanyaan[index])
+            ? (ctx, index) =>
+                PertanyaanItem(idpeserta.toString(), index, pertanyaan[index])
             : (ctx, i) => const ShimmerItem(190, 220),
       ),
     );
