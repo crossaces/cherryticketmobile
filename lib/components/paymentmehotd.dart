@@ -1,6 +1,4 @@
 import 'package:cherryticketmobile/components/color.dart';
-import 'package:cherryticketmobile/view/login.dart';
-import 'package:cherryticketmobile/view/transaction.dart';
 import 'package:cherryticketmobile/view/transactionpayment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,7 +43,8 @@ class _PaymentMethod extends State<PaymentMethod> {
                     MaterialPageRoute(
                         builder: (context) => const TransactionPayment(
                             "https://www.yayasansimetri.or.id/wp-content/uploads/2021/03/Logo-BCA-blue-A4.png",
-                            "032 900 977 9")),
+                            "032 900 977 9",
+                            "BCA Transfer")),
                   );
                 },
                 child: Row(

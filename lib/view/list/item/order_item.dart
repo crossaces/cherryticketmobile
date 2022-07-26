@@ -64,7 +64,7 @@ class _OrderItemState extends State<OrderItem> {
           Row(
             children: [
               AutoSizeText(
-                currencyFormatter.format(widget.data.harga).toString(),
+                currencyFormatter.format(widget.data.subtotal).toString(),
                 style: const TextStyle(
                     color: indigo, fontSize: 14, fontWeight: FontWeight.w800),
               ),

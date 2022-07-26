@@ -7,6 +7,7 @@ import 'package:cherryticketmobile/providerAPI/kota_api.dart';
 import 'package:cherryticketmobile/providerAPI/event_api.dart';
 import 'package:cherryticketmobile/providerAPI/genre_api.dart';
 import 'package:cherryticketmobile/providerAPI/peserta_api.dart';
+import 'package:cherryticketmobile/providerAPI/transaksi_api.dart';
 import 'package:cherryticketmobile/view/getstarted.dart';
 import 'package:cherryticketmobile/view/navigation.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -93,6 +94,7 @@ class _MyAppState extends State<MyApp> {
               create: (_) => FormPendaftaranAPI()),
           ChangeNotifierProvider<JawabanPendaftaran>(
               create: (_) => JawabanPendaftaran()),
+          ChangeNotifierProvider<TransaksiApi>(create: (_) => TransaksiApi()),
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,

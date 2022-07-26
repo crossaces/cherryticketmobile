@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cherryticketmobile/components/color.dart';
+import 'package:cherryticketmobile/components/data.dart';
 import 'package:cherryticketmobile/components/progress_hud.dart';
+import 'package:cherryticketmobile/components/uploadtransaksi.dart';
 import 'package:cherryticketmobile/providerAPI/api_service.dart';
 import 'package:cherryticketmobile/providerAPI/jawabanpendaftaran.dart';
 import 'package:cherryticketmobile/view/list/order_list.dart';
@@ -12,8 +14,10 @@ import 'package:provider/provider.dart';
 
 class TransactionPayment extends StatefulWidget {
   final String logo;
+  final String method;
   final String number;
-  const TransactionPayment(this.logo, this.number, {Key key}) : super(key: key);
+  const TransactionPayment(this.logo, this.number, this.method, {Key key})
+      : super(key: key);
 
   @override
   State<TransactionPayment> createState() => _TransactionPaymentState();
@@ -23,6 +27,7 @@ class _TransactionPaymentState extends State<TransactionPayment>
     with SingleTickerProviderStateMixin {
   NumberFormat currencyFormatter;
   bool isApiCallProcess = false;
+  bool button = true;
   @override
   void initState() {
     setState(() {
@@ -150,26 +155,65 @@ class _TransactionPaymentState extends State<TransactionPayment>
                   style: TextStyle(fontSize: 18, color: indigo),
                   maxLines: 1,
                 ),
-                onPressed: () {
-                  setState(() {
-                    isApiCallProcess = true;
-                  });
-                  APIService apiService = APIService();
-                  apiService
-                      .createTransaksi(
-                          Provider.of<JawabanPendaftaran>(context,
-                                  listen: false)
-                              .items,
-                          Provider.of<JawabanPendaftaran>(context,
-                                  listen: false)
-                              .orders)
-                      .then((value) {
-                    setState(() {
-                      isApiCallProcess = false;
-                    });
-                    print(value);
-                  });
-                },
+                onPressed: button
+                    ? () {
+                        setState(() {
+                          isApiCallProcess = true;
+                        });
+                        APIService apiService = APIService();
+                        apiService
+                            .createTransaksi(
+                                Provider.of<JawabanPendaftaran>(context,
+                                        listen: false)
+                                    .items,
+                                Provider.of<JawabanPendaftaran>(context,
+                                        listen: false)
+                                    .orders,
+                                widget.method)
+                            .then((value) {
+                          setState(() {
+                            isApiCallProcess = false;
+                          });
+                          if (value['message'] ==
+                              'Create Transaction Success') {
+                            final snackBar = SnackBar(
+                              duration: const Duration(seconds: 1),
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: Colors.green[800],
+                              content: Text("${value['message']}"),
+                            );
+                            setState(() {
+                              button = false;
+                            });
+                            showDialog<void>(
+                                barrierColor: Colors.white.withOpacity(0.1),
+                                context: context,
+                                builder: (context) {
+                                  return UploadTransaksi(
+                                      value['data']['BUKTI_PEMBAYARAN']
+                                                  .toString() ==
+                                              'null'
+                                          ? image + '/GambarPeserta/default.png'
+                                          : image +
+                                              '/GambarTransaksi/' +
+                                              value['data']['BUKTI_PEMBAYARAN'],
+                                      value['data']['ID_TRANSAKSI']);
+                                });
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          } else {
+                            final snackBar = SnackBar(
+                              duration: const Duration(seconds: 1),
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: Colors.red[800],
+                              content: Text("${value['message']}"),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        });
+                      }
+                    : null,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   primary: gray,

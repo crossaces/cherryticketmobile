@@ -11,9 +11,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/intl.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:location/location.dart';
-
 import 'package:provider/provider.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 class EventShowItem extends StatefulWidget {

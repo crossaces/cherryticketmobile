@@ -112,7 +112,7 @@ class APIService {
   }
 
   Future<dynamic> createTransaksi(
-      List<Jawaban> jawaban, List<Order> order) async {
+      List<Jawaban> jawaban, List<Order> order, String method) async {
     final prefs = await SharedPreferences.getInstance();
 
     String token = prefs.getString('token') ?? '0';
@@ -121,6 +121,7 @@ class APIService {
     var response = await http.post(
       url,
       body: json.encode({
+        'method': method,
         'jawaban': jawaban.map((tag) => tag.toJson()).toList(),
         'order': order.map((tag) => tag.toJson()).toList(),
         'idpeserta': id
@@ -173,6 +174,30 @@ class APIService {
     var request = http.MultipartRequest(
       'POST',
       Uri.parse(api + 'pgambar/' + id.toString()),
+    );
+    Map<String, String> headers = {
+      "Authorization": "Bearer $token",
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+    request.headers.addAll(headers);
+    final httpImage = http.MultipartFile.fromBytes(
+        'gambar', image.readAsBytesSync(),
+        contentType: MediaType('image', 'jpeg,png,jpg'), filename: 'image.png');
+    request.files.add(httpImage);
+    request.headers.addAll(headers);
+
+    var res = await request.send();
+    return res.statusCode;
+  }
+
+  Future<dynamic> uploadTransksi(File image, int id) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    String token = prefs.getString('token') ?? '0';
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse(api + 'uploadt/' + id.toString()),
     );
     Map<String, String> headers = {
       "Authorization": "Bearer $token",
