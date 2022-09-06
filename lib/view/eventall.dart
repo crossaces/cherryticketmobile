@@ -65,13 +65,13 @@ class _EventAllState extends State<EventAll>
             ),
             SliverList(
               delegate: SliverChildListDelegate([
-                const GenreView(),
+                const Center(child: GenreView()),
                 Stack(
                   children: [
                     const EventAllView(),
                     Positioned(
                         right: 10,
-                        bottom: 20,
+                        bottom: 35,
                         child: FloatingActionButton(
                             child: const Icon(Icons.vpn_key),
                             backgroundColor: indigo,

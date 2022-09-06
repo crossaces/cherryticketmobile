@@ -42,7 +42,7 @@ class GenreAPI extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
 
     String token = prefs.getString('token') ?? '0';
-    Uri url = Uri.parse(api + "genre");
+    Uri url = Uri.parse(api + "genremobile");
     try {
       final response = await http.get(
         url,

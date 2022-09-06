@@ -1,6 +1,4 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cherryticketmobile/components/color.dart';
-import 'package:cherryticketmobile/model/tiket_model.dart';
 import 'package:cherryticketmobile/providerAPI/jawabanpendaftaran.dart';
 import 'package:cherryticketmobile/view/list/transaksi_list.dart';
 import 'package:flutter/cupertino.dart';

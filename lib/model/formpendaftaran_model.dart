@@ -46,6 +46,35 @@ class Pertanyaan {
   }
 }
 
+class PertanyaanResponse {
+  final String pertanyaan;
+  final int nomor;
+  String jawaban;
+  final String type;
+  final List<Options> options;
+
+  PertanyaanResponse(
+      {this.pertanyaan, this.type, this.options, this.jawaban, this.nomor});
+
+  Map<String, dynamic> toJson() => {
+        'PERTANYAAN': pertanyaan,
+        'NOMOR': nomor,
+        'DATA_JAWABAN': jawaban,
+        'TYPE': type,
+        'OPTIONS': options.map((tag) => tag.toJson()).toList(),
+      };
+
+  factory PertanyaanResponse.fromJson(Map<String, dynamic> json) {
+    return PertanyaanResponse(
+        pertanyaan: json['PERTANYAAN'],
+        type: json['TYPE'],
+        nomor: json['NOMOR'],
+        jawaban: json['DATA_JAWABAN'],
+        options: List<Options>.from(
+            json["OPTIONS"].map((x) => Options.fromJson(x))));
+  }
+}
+
 class Options {
   final String option;
 

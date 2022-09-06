@@ -1,11 +1,11 @@
 import 'package:cherryticketmobile/components/color.dart';
-import 'package:cherryticketmobile/model/formpendaftaran_model.dart';
 import 'package:cherryticketmobile/providerAPI/berita_api.dart';
 import 'package:cherryticketmobile/providerAPI/form_pendaftaran_api.dart';
 import 'package:cherryticketmobile/providerAPI/jawabanpendaftaran.dart';
 import 'package:cherryticketmobile/providerAPI/kota_api.dart';
 import 'package:cherryticketmobile/providerAPI/event_api.dart';
 import 'package:cherryticketmobile/providerAPI/genre_api.dart';
+import 'package:cherryticketmobile/providerAPI/pendaftaran_api.dart';
 import 'package:cherryticketmobile/providerAPI/peserta_api.dart';
 import 'package:cherryticketmobile/providerAPI/transaksi_api.dart';
 import 'package:cherryticketmobile/view/getstarted.dart';
@@ -95,6 +95,8 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider<JawabanPendaftaran>(
               create: (_) => JawabanPendaftaran()),
           ChangeNotifierProvider<TransaksiApi>(create: (_) => TransaksiApi()),
+          ChangeNotifierProvider<PendaftaranpesertaAPI>(
+              create: (_) => PendaftaranpesertaAPI()),
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,

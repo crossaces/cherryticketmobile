@@ -24,6 +24,7 @@ class EventHomeItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.0),
             child: Image.network(
               image + '/GambarEvent/' + data.gambarevent,
+              fit: BoxFit.cover,
               width: 230,
               height: 40,
             ),

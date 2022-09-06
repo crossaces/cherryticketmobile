@@ -197,22 +197,22 @@ class _TiketItemState extends State<TiketItem> {
                                   idtiket: widget.data.idtiket,
                                 ),
                               );
-                              for (var i = 0;
-                                  i <
-                                      Provider.of<JawabanPendaftaran>(context,
-                                              listen: false)
-                                          .orders
-                                          .length;
-                                  i++) {
-                                print(Provider.of<JawabanPendaftaran>(context,
-                                        listen: false)
-                                    .orders[i]
-                                    .jumlah);
-                                print(Provider.of<JawabanPendaftaran>(context,
-                                        listen: false)
-                                    .orders[i]
-                                    .subtotal);
-                              }
+                              // for (var i = 0;
+                              //     i <
+                              //         Provider.of<JawabanPendaftaran>(context,
+                              //                 listen: false)
+                              //             .orders
+                              //             .length;
+                              //     i++) {
+                              //   print(Provider.of<JawabanPendaftaran>(context,
+                              //           listen: false)
+                              //       .orders[i]
+                              //       .jumlah);
+                              //   print(Provider.of<JawabanPendaftaran>(context,
+                              //           listen: false)
+                              //       .orders[i]
+                              //       .subtotal);
+                              // }
                             } else {
                               final snackBar = SnackBar(
                                 duration: const Duration(seconds: 1),

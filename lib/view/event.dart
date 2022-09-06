@@ -1,163 +1,74 @@
-import 'package:flutter/material.dart';
 import 'package:cherryticketmobile/components/color.dart';
-import 'package:cherryticketmobile/components/progress_hud.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-
-import 'login.dart';
+import 'package:cherryticketmobile/view/list/transaksi_list.dart';
+import 'package:cherryticketmobile/view/list/upcoming_list.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 class EventScreen extends StatefulWidget {
   const EventScreen({Key key}) : super(key: key);
-
   @override
   State<EventScreen> createState() => _EventScreenState();
 }
 
-class _EventScreenState extends State<EventScreen> {
-  var emailController = TextEditingController();
-  var passController = TextEditingController();
-  var numberController = TextEditingController();
-  bool isApiCallProcess = false;
-
+class _EventScreenState extends State<EventScreen>
+    with SingleTickerProviderStateMixin {
+  Location _location;
+  double lat;
+  double lng;
+  TabController tabController;
   @override
   void initState() {
+    setState(() {
+      _location = Location();
+    });
+    _location.onLocationChanged.listen((event) {
+      if (mounted) {
+        setState(() {
+          lng = event.longitude;
+          lat = event.latitude;
+        });
+      }
+    });
+    tabController = TabController(length: 3, initialIndex: 0, vsync: this);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ProgressHUD(
-        child: _upInit(context), inAsyncCall: isApiCallProcess, opacity: 0.3);
-  }
-
-  Widget _upInit(BuildContext context) {
-    final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       backgroundColor: gray,
       body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Visibility(
-                visible: !isKeyboard,
-                child: Expanded(
-                  flex: !isKeyboard ? 1 : 1,
-                  child: Container(
-                      padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-                      child: Image.asset('assets/images/register.png')),
-                ),
-              ),
-              Expanded(
-                flex: !isKeyboard ? 2 : 1,
-                child: Center(
-                  child: Container(
-                    padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-                    child: Container(
-                      padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                              width: double.infinity,
-                              child: Center(
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    const AutoSizeText(
-                                      'Ooopss...',
-                                      style: TextStyle(
-                                          fontSize: 45,
-                                          color: indigo,
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    const AutoSizeText(
-                                      "Your account is not verified yet. Please verify your email by click on a link in your email",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: cherry,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    const AutoSizeText(
-                                      "Doesn’t receive email from us? Please click the button below to EventScreen verification email.",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: cherry,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const SizedBox(height: 8.0),
-                                        ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              primary: cherry),
-                                          onPressed: () {},
-                                          child: const Text("EventScreen"),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        const AutoSizeText(
-                                          "Already verified?",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: indigo,
-                                              fontWeight: FontWeight.w800),
-                                        ),
-                                        InkWell(
-                                            onTap: () =>
-                                                Navigator.pushReplacement(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const Login()),
-                                                ),
-                                            child: const AutoSizeText(
-                                              " Sign in",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: cherry,
-                                                  fontWeight: FontWeight.w800),
-                                            )),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ))
-                        ],
-                      ),
-                    ),
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverList(
+              delegate: SliverChildListDelegate([
+                TabBar(
+                    indicatorColor: cherry,
+                    unselectedLabelColor: indigo,
+                    labelColor: cherry,
+                    tabs: const [
+                      Tab(text: 'Upcoming'),
+                      Tab(text: 'Ongoing'),
+                      Tab(
+                        text: 'Complete',
+                      )
+                    ],
+                    controller: tabController),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height - 120,
+                  child: TabBarView(
+                    children: [
+                      UpcomingView(lng, lat),
+                      const TransaksiView(),
+                      const TransaksiView()
+                    ],
+                    controller: tabController,
                   ),
-                ),
-              ),
-            ],
-          ),
+                )
+              ]),
+            ),
+          ],
         ),
       ),
     );

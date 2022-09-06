@@ -7,9 +7,7 @@ import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/components/progress_hud.dart';
 import 'package:cherryticketmobile/model/peserta_model.dart';
 import 'package:cherryticketmobile/providerAPI/api_service.dart';
-import 'package:cherryticketmobile/providerAPI/peserta_api.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class UploadTransaksi extends StatefulWidget {
   final String imagedata;
