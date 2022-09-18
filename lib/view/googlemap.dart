@@ -39,8 +39,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       _originLatitude = widget.currentlat;
       _originLongitude = widget.currentlng;
     });
-
-    _getPolyline();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _getPolyline();
+    });
   }
 
   void _onMapCreated(GoogleMapController controller) async {
@@ -56,7 +57,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       width: 8,
     );
     polylines[id] = polyline;
-    setState(() {});
   }
 
   void _getPolyline() async {
@@ -107,6 +107,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       ),
       body: GoogleMap(
         myLocationEnabled: true,
+        // ignore: sdk_version_set_literal
         markers: {marker},
         onMapCreated: _onMapCreated,
         polylines: Set<Polyline>.of(polylines.values),

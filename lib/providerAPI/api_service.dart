@@ -1,7 +1,7 @@
 import 'dart:io';
-
 import 'package:cherryticketmobile/model/auth_model.dart';
 import 'package:cherryticketmobile/components/data.dart';
+import 'package:cherryticketmobile/model/formevaluasi_model.dart';
 import 'package:cherryticketmobile/model/formpendaftaran_model.dart';
 import 'package:cherryticketmobile/model/peserta_model.dart';
 import 'package:http/http.dart' as http;
@@ -67,6 +67,33 @@ class APIService {
     }
   }
 
+  Future<dynamic> addQNA(
+      String namapeserta, String pertanyaan, int idevent) async {
+    Uri url = Uri.parse(api + 'qna');
+    final prefs = await SharedPreferences.getInstance();
+
+    String token = prefs.getString('token') ?? '0';
+
+    var response = await http.post(
+      url,
+      body: json.encode({
+        'nama_peserta': namapeserta,
+        'pertanyaan': pertanyaan,
+        'id_event': idevent,
+      }),
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return json.decode(response.body);
+    }
+  }
+
   Future<dynamic> login(LoginRequestModel requestModel) async {
     Uri url = Uri.parse(api + 'login');
 
@@ -76,6 +103,56 @@ class APIService {
       headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return json.decode(response.body);
+    }
+  }
+
+  Future<dynamic> checkin(int idpendaftaran) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    String token = prefs.getString('token') ?? '0';
+    int id = prefs.getInt('idpeserta') ?? '0';
+    Uri url = Uri.parse(api + 'event/in');
+    var response = await http.post(
+      url,
+      body: json.encode({
+        'id_peserta': id,
+        'id_pendaftaran': idpendaftaran,
+      }),
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return json.decode(response.body);
+    }
+  }
+
+  Future<dynamic> checkout(int idpendaftaran) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    String token = prefs.getString('token') ?? '0';
+    int id = prefs.getInt('idpeserta') ?? '0';
+    Uri url = Uri.parse(api + 'event/out');
+    var response = await http.post(
+      url,
+      body: json.encode({
+        'id_peserta': id,
+        'id_pendaftaran': idpendaftaran,
+      }),
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
     if (response.statusCode == 200) {
@@ -125,6 +202,32 @@ class APIService {
         'jawaban': jawaban.map((tag) => tag.toJson()).toList(),
         'order': order.map((tag) => tag.toJson()).toList(),
         'idpeserta': id
+      }),
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return json.decode(response.body);
+    }
+  }
+
+  Future<dynamic> evaluation(
+      List<PertanyaanE> jawaban, int idform, int idpendaftaran) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    String token = prefs.getString('token') ?? '0';
+    Uri url = Uri.parse(api + 'evaluasi');
+    var response = await http.post(
+      url,
+      body: json.encode({
+        "id_form_evaluasi": idform,
+        "id_pendaftaran": idpendaftaran,
+        'data_jawaban': jawaban.map((tag) => tag.toJson()).toList(),
       }),
       headers: {
         'Content-type': 'application/json',

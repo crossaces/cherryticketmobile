@@ -1,5 +1,6 @@
 import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/providerAPI/berita_api.dart';
+import 'package:cherryticketmobile/providerAPI/form_evaluasi_api.dart';
 import 'package:cherryticketmobile/providerAPI/form_pendaftaran_api.dart';
 import 'package:cherryticketmobile/providerAPI/jawabanpendaftaran.dart';
 import 'package:cherryticketmobile/providerAPI/kota_api.dart';
@@ -7,6 +8,7 @@ import 'package:cherryticketmobile/providerAPI/event_api.dart';
 import 'package:cherryticketmobile/providerAPI/genre_api.dart';
 import 'package:cherryticketmobile/providerAPI/pendaftaran_api.dart';
 import 'package:cherryticketmobile/providerAPI/peserta_api.dart';
+import 'package:cherryticketmobile/providerAPI/qna_api.dart';
 import 'package:cherryticketmobile/providerAPI/transaksi_api.dart';
 import 'package:cherryticketmobile/view/getstarted.dart';
 import 'package:cherryticketmobile/view/navigation.dart';
@@ -87,8 +89,11 @@ class _MyAppState extends State<MyApp> {
             create: (_) => BeritaAPI(),
           ),
           ChangeNotifierProvider<GenreAPI>(create: (_) => GenreAPI()),
+          ChangeNotifierProvider<QnaAPI>(create: (_) => QnaAPI()),
           ChangeNotifierProvider<EventAPI>(create: (_) => EventAPI()),
           ChangeNotifierProvider<KotaAPI>(create: (_) => KotaAPI()),
+          ChangeNotifierProvider<FormEvaluasiAPI>(
+              create: (_) => FormEvaluasiAPI()),
           ChangeNotifierProvider<PesertaAPI>(create: (_) => PesertaAPI()),
           ChangeNotifierProvider<FormPendaftaranAPI>(
               create: (_) => FormPendaftaranAPI()),

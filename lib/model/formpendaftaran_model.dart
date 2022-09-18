@@ -17,6 +17,21 @@ class Formpendaftaran {
   }
 }
 
+class Options {
+  final String option;
+
+  Options({this.option});
+
+  Map<String, dynamic> toJson() => {
+        'OPTION': option,
+      };
+  factory Options.fromJson(Map<String, dynamic> json) {
+    return Options(
+      option: json['OPTION'],
+    );
+  }
+}
+
 class Pertanyaan {
   final String pertanyaan;
   final int nomor;
@@ -72,21 +87,6 @@ class PertanyaanResponse {
         jawaban: json['DATA_JAWABAN'],
         options: List<Options>.from(
             json["OPTIONS"].map((x) => Options.fromJson(x))));
-  }
-}
-
-class Options {
-  final String option;
-
-  Options({this.option});
-
-  Map<String, dynamic> toJson() => {
-        'OPTION': option,
-      };
-  factory Options.fromJson(Map<String, dynamic> json) {
-    return Options(
-      option: json['OPTION'],
-    );
   }
 }
 

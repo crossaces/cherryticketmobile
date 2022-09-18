@@ -38,12 +38,10 @@ class _EventShowItemState extends State<EventShowItem>
       _location = Location();
     });
     _location.onLocationChanged.listen((event) {
-      if (mounted) {
-        setState(() {
-          lng = event.longitude;
-          lat = event.latitude;
-        });
-      }
+      setState(() {
+        lng = event.longitude;
+        lat = event.latitude;
+      });
     });
     super.initState();
   }
@@ -396,96 +394,103 @@ class _EventShowItemState extends State<EventShowItem>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // Visibility(
-              //   visible: loadEvent.modeevent != 'Offline' ? true : false,
-              //   child: ElevatedButton.icon(
-              //     icon: const Icon(
-              //       Icons.link,
-              //       color: white,
-              //       size: 15.0,
-              //     ),
-              //     label: const AutoSizeText(
-              //       'Link',
-              //       style: TextStyle(fontSize: 18, color: white),
-              //       maxLines: 1,
-              //     ),
-              //     onPressed: () {
-              //       Clipboard.setData(ClipboardData(text: loadEvent.url));
-              //       final snackBar = SnackBar(
-              //         duration: const Duration(seconds: 1),
-              //         behavior: SnackBarBehavior.floating,
-              //         backgroundColor: Colors.green[800],
-              //         content: const Text("Link Save To Clipboard"),
-              //       );
-              //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              //     },
-              //     style: ElevatedButton.styleFrom(
-              //       primary: Colors.blue[900],
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(5.0),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              Visibility(
-                visible: loadEvent.modeevent != 'Offline' ? true : false,
-                child: const Spacer(),
-              ),
               Visibility(
                 visible: loadEvent.modeevent != 'Online' ? true : false,
-                child: ElevatedButton.icon(
-                  icon: const Icon(
-                    Icons.location_on,
-                    color: white,
-                    size: 15.0,
-                  ),
-                  label: const AutoSizeText(
-                    'Location',
-                    style: TextStyle(fontSize: 18, color: white),
-                    maxLines: 1,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => GoogleMapScreen(lat, lng,
-                              loadEvent.idevent, loadEvent.lat, loadEvent.lng)),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: cherry,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
+                child: Expanded(
+                  flex: 1,
+                  child: ElevatedButton.icon(
+                    icon: const Icon(
+                      Icons.location_on,
+                      color: white,
+                      size: 15.0,
+                    ),
+                    label: const AutoSizeText(
+                      'Location',
+                      style: TextStyle(fontSize: 18, color: white),
+                      maxLines: 1,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GoogleMapScreen(
+                                lat,
+                                lng,
+                                loadEvent.idevent,
+                                loadEvent.lat,
+                                loadEvent.lng)),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: cherry,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
                     ),
                   ),
                 ),
               ),
               Visibility(
                 visible: loadEvent.modeevent != 'Online' ? true : false,
-                child: const Spacer(),
+                child: const SizedBox(
+                  width: 10,
+                ),
               ),
-              ElevatedButton.icon(
-                icon: const Icon(
-                  Icons.payments_sharp,
-                  color: indigo,
-                  size: 15.0,
+              Expanded(
+                flex: 1,
+                child: ElevatedButton.icon(
+                  icon: const Icon(
+                    Icons.phone_android,
+                    color: white,
+                    size: 15.0,
+                  ),
+                  label: const AutoSizeText(
+                    'Phone',
+                    style: TextStyle(fontSize: 18, color: white),
+                    maxLines: 1,
+                  ),
+                  onPressed: () {
+                    String url = "https://wa.me/" +
+                        loadEvent.numberphone +
+                        "/?text=Hello";
+                    launch(url);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green[800],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
                 ),
-                label: const AutoSizeText(
-                  'Ticket',
-                  style: TextStyle(fontSize: 18, color: indigo),
-                  maxLines: 1,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => TicketScreen(loadEvent.tiket)),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: gray,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                flex: 1,
+                child: ElevatedButton.icon(
+                  icon: const Icon(
+                    Icons.payments_sharp,
+                    color: indigo,
+                    size: 15.0,
+                  ),
+                  label: const AutoSizeText(
+                    'Ticket',
+                    style: TextStyle(fontSize: 18, color: indigo),
+                    maxLines: 1,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TicketScreen(loadEvent.tiket)),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: gray,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
                   ),
                 ),
               )

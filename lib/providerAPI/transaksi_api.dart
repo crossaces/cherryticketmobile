@@ -46,8 +46,8 @@ class TransaksiApi extends ChangeNotifier {
                 metodetransaksi: json['METODE_TRANSAKSI'].toString(),
                 buktipembayaran: json['BUKTI_PEMBAYARAN'].toString(),
                 total: json['TOTAL_HARGA'],
-                order: List<Order>.from(
-                    json["order"].map((x) => Order.fromJson(x))),
+                order: List<OrderTransaksi>.from(
+                    json["order"].map((x) => OrderTransaksi.fromJson(x))),
                 idpeserta: json['ID_PESERTA']),
           ));
       _items = loadKota;

@@ -76,6 +76,29 @@ class _UpcomingItemState extends State<UpcomingItem> {
                 ),
               ),
             ),
+            Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    width: 400,
+                    height: 20,
+                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    decoration: const BoxDecoration(color: cherry),
+                    child: Center(
+                      child: AutoSizeText(
+                        widget.data.order.namatiket,
+                        style: const TextStyle(
+                            fontSize: 18,
+                            color: white,
+                            fontWeight: FontWeight.w600),
+                        maxLines: 1,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
             Container(
               width: 400,
               padding: const EdgeInsets.symmetric(vertical: 5),

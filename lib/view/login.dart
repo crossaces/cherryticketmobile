@@ -246,7 +246,7 @@ class _LoginState extends State<Login> {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(snackBar);
                                                 savePref(value['user']['id']);
-                                                Navigator.push(
+                                                Navigator.pushReplacement(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>

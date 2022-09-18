@@ -29,7 +29,6 @@ class _TiketItemState extends State<TiketItem> {
           .items
           .datapertanyaan;
     });
-
     setState(() {
       Provider.of<EventAPI>(context, listen: false)
           .initTiket(widget.data.idtiket, widget.data.idevent);

@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OrderTransaksiView extends StatefulWidget {
-  final List<Order> data;
+  final List<OrderTransaksi> data;
   const OrderTransaksiView(this.data, {Key key}) : super(key: key);
 
   @override
@@ -25,7 +25,7 @@ class _OrderTransaksiViewState extends State<OrderTransaksiView> {
 }
 
 class OrderTransaksiList extends StatelessWidget {
-  final List<Order> data;
+  final List<OrderTransaksi> data;
   const OrderTransaksiList(
     this.data, {
     Key key,

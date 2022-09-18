@@ -47,7 +47,7 @@ class _DialogPendaftaran extends State<DialogPendaftaran> {
                   padding: const EdgeInsets.all(10.0),
                   itemCount: widget.data.length,
                   itemBuilder: (ctx, i) =>
-                      DialogPendaftaranItem(widget.data[i])),
+                      DialogPendaftaranItem(widget.data[i], i)),
             )),
         actions: <Widget>[
           Row(mainAxisAlignment: MainAxisAlignment.end, children: [

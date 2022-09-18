@@ -25,7 +25,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    Provider.of<PesertaAPI>(context, listen: false).fetch();
     myGroup = AutoSizeGroup();
     super.initState();
   }

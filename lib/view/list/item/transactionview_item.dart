@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class OrderTransaksiItem extends StatefulWidget {
-  final Order data;
+  final OrderTransaksi data;
 
   const OrderTransaksiItem(this.data, {Key key}) : super(key: key);
 

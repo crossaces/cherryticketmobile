@@ -10,7 +10,7 @@ class Transaksi {
   final int idpeserta;
   final int total;
   final Event event;
-  final List<Order> order;
+  final List<OrderTransaksi> order;
 
   Transaksi(
       {this.idtransaksi,
@@ -32,7 +32,8 @@ class Transaksi {
         total: json['TOTAL_HARGA'],
         metodetransaksi: json['METODE_TRANSAKSI'].toString(),
         buktipembayaran: json['BUKTI_PEMBAYARAN'].toString(),
-        order: List<Order>.from(json["order"].map((x) => Order.fromJson(x))),
+        order: List<OrderTransaksi>.from(
+            json["order"].map((x) => OrderTransaksi.fromJson(x))),
         idpeserta: json['ID_PESERTA']);
   }
 }

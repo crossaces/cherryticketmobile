@@ -33,6 +33,7 @@ class Event {
   final String namakota;
   final int ideo;
   final String namagenre;
+  final String numberphone;
   final List<Tiket> tiket;
 
   Event({
@@ -40,6 +41,7 @@ class Event {
     this.eventtab,
     this.namaevent,
     this.tglmulai,
+    this.numberphone,
     this.tglselesai,
     this.tglacaramulai,
     this.tglacaraselesai,

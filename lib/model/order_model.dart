@@ -1,4 +1,4 @@
-class Order {
+class OrderTransaksi {
   final int idorder;
   final int jumlah;
   final int subtotal;
@@ -7,7 +7,7 @@ class Order {
   final String namatiket;
   final String fasilitas;
 
-  Order({
+  OrderTransaksi({
     this.idorder,
     this.jumlah,
     this.subtotal,
@@ -17,8 +17,8 @@ class Order {
     this.idtiket,
   });
 
-  factory Order.fromJson(Map<String, dynamic> json) {
-    return Order(
+  factory OrderTransaksi.fromJson(Map<String, dynamic> json) {
+    return OrderTransaksi(
         idtiket: json['ID_TIKET'],
         idorder: json['ID_ORDER'],
         namatiket: json['tiket']['NAMA_TIKET'],

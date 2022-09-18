@@ -126,6 +126,7 @@ class EventAPI extends ChangeNotifier {
               namajenis: json['jenisacara']['NAMA_JENIS'].toString(),
               namakota: json['kota']['NAMA_KOTA'].toString(),
               namagenre: json['genre']['NAMA_GENRE'].toString(),
+              numberphone: json['eo']['user']['no_hp'].toString(),
               lng: json['LNG'],
               lat: json['LAT'],
               url: json['URL'].toString(),

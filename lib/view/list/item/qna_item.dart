@@ -1,29 +1,19 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cherryticketmobile/components/color.dart';
-import 'package:cherryticketmobile/model/formpendaftaran_model.dart';
-import 'package:intl/intl.dart';
+import 'package:cherryticketmobile/model/qna_model.dart';
 import 'package:flutter/material.dart';
 
-class DialogPendaftaranItem extends StatefulWidget {
-  final PertanyaanResponse data;
-  final int i;
-  const DialogPendaftaranItem(this.data, this.i, {Key key}) : super(key: key);
+class QnaItem extends StatefulWidget {
+  final Qna data;
+  const QnaItem(this.data, {Key key}) : super(key: key);
 
   @override
-  State<DialogPendaftaranItem> createState() => _DialogPendaftaranItemState();
+  State<QnaItem> createState() => _QnaItemState();
 }
 
-class _DialogPendaftaranItemState extends State<DialogPendaftaranItem> {
-  NumberFormat currencyFormatter;
+class _QnaItemState extends State<QnaItem> {
   @override
   void initState() {
-    setState(() {
-      currencyFormatter = NumberFormat.currency(
-        locale: 'id',
-        symbol: 'Rp ',
-        decimalDigits: 2,
-      );
-    });
     super.initState();
   }
 
@@ -33,14 +23,14 @@ class _DialogPendaftaranItemState extends State<DialogPendaftaranItem> {
       width: MediaQuery.of(context).size.width - 25,
       padding: const EdgeInsets.only(top: 3),
       decoration: BoxDecoration(
-        color: white,
+        color: gray,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AutoSizeText(
-            (widget.i + 1).toString() + ". " + widget.data.pertanyaan,
+            widget.data.namapeserta,
             style: const TextStyle(
                 fontSize: 12,
                 color: Colors.black54,
@@ -48,9 +38,9 @@ class _DialogPendaftaranItemState extends State<DialogPendaftaranItem> {
           ),
           const SizedBox(height: 5),
           AutoSizeText(
-            widget.data.jawaban,
+            widget.data.pertanyaan,
             style: const TextStyle(
-                fontSize: 18, color: indigo, fontWeight: FontWeight.w600),
+                fontSize: 15, color: indigo, fontWeight: FontWeight.w600),
           ),
           const Divider(
             color: Colors.black45,

@@ -19,3 +19,19 @@ class Check {
         idpeserta: json['ID_PESERTA']);
   }
 }
+
+class CheckRequestModel {
+  int idpendaftaran;
+  int idpeserta;
+
+  CheckRequestModel({this.idpendaftaran, this.idpeserta});
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> map = {
+      'id_pendaftaran': idpendaftaran,
+      'id_peserta': idpeserta,
+    };
+
+    return map;
+  }
+}

@@ -4,6 +4,7 @@ import 'package:cherryticketmobile/providerAPI/event_api.dart';
 import 'package:cherryticketmobile/providerAPI/genre_api.dart';
 import 'package:cherryticketmobile/providerAPI/kota_api.dart';
 import 'package:cherryticketmobile/providerAPI/pendaftaran_api.dart';
+import 'package:cherryticketmobile/providerAPI/peserta_api.dart';
 import 'package:cherryticketmobile/providerAPI/transaksi_api.dart';
 import 'package:cherryticketmobile/view/event.dart';
 import 'package:cherryticketmobile/view/home.dart';
@@ -30,6 +31,7 @@ class _NavigationBottomState extends State<NavigationBottom> {
     super.initState();
     Provider.of<GenreAPI>(context, listen: false).fetch();
     Provider.of<BeritaAPI>(context, listen: false).fetchberita();
+    Provider.of<PesertaAPI>(context, listen: false).fetch();
     Provider.of<EventAPI>(context, listen: false).fetch();
     Provider.of<KotaAPI>(context, listen: false).fetch();
     Provider.of<TransaksiApi>(context, listen: false).fetch();
