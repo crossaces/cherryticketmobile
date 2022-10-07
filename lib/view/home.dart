@@ -2,7 +2,6 @@ import 'package:cherryticketmobile/view/eventall.dart';
 import 'package:cherryticketmobile/view/list/berita_list.dart';
 import 'package:cherryticketmobile/view/list/event_list_home.dart';
 import 'package:cherryticketmobile/view/list/genre_list.dart';
-import 'package:cherryticketmobile/view/list/kota_list.dart';
 import 'package:flutter/material.dart';
 import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/components/progress_hud.dart';
@@ -37,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: gray,
         body: SafeArea(
             child: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
           child: Container(
             color: gray,
             child: Column(
@@ -146,22 +146,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 const EventHomeView(),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    SizedBox(
-                      width: 18,
-                    ),
-                    AutoSizeText(
-                      'Our Branch Company',
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: indigo,
-                          fontWeight: FontWeight.w700),
-                    ),
-                  ],
-                ),
-                const KotaView(),
               ],
             ),
           ),

@@ -15,7 +15,7 @@ class EventHomeItem extends StatelessWidget {
       child: Hero(
         tag: data.gambarevent,
         child: Container(
-          margin: const EdgeInsets.only(left: 5.0, right: 5.0),
+          margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
           decoration: BoxDecoration(
             color: gray,
             borderRadius: BorderRadius.circular(12.0),
@@ -26,7 +26,7 @@ class EventHomeItem extends StatelessWidget {
               image + '/GambarEvent/' + data.gambarevent,
               fit: BoxFit.cover,
               width: 230,
-              height: 40,
+              height: 200,
             ),
           ),
         ),

@@ -450,7 +450,7 @@ class _EventShowItemState extends State<EventShowItem>
                     maxLines: 1,
                   ),
                   onPressed: () {
-                    String url = "https://wa.me/" +
+                    String url = "https://wa.me/+62" +
                         loadEvent.numberphone +
                         "/?text=Hello";
                     launch(url);

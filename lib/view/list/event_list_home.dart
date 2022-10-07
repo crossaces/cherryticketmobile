@@ -35,12 +35,11 @@ class EventHomeList extends StatelessWidget {
         ? searchpublic(eventData.items)
         : _performSearch(eventData.items, Provider.of<EventAPI>(context).genre);
     return SizedBox(
-      height: 150,
       child: ListView.builder(
-        scrollDirection: Axis.horizontal,
+        scrollDirection: Axis.vertical,
         shrinkWrap: true,
         physics: event.isNotEmpty
-            ? const AlwaysScrollableScrollPhysics()
+            ? const ClampingScrollPhysics()
             : const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.all(10.0),
         itemCount: event.isNotEmpty ? event.length : 6,

@@ -68,7 +68,7 @@ class PendaftaranpesertaAPI extends ChangeNotifier {
       final pendaftaranData = extractedData['data'];
       pendaftaranData.forEach((data) => loadpendaftaran.add(Pendaftaranpeserta(
           idpendaftaran: data['ID_PENDAFTARAN'],
-          event: Event.fromJson(data['event']),
+          event: EventPendaftaran.fromJson(data['event']),
           nomortiket: data['NOMOR_TIKET'],
           order: OrderTransaksi.fromJson(data['order']),
           datapertanyaan: List<PertanyaanResponse>.from(json

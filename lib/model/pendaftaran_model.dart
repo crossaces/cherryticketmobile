@@ -10,7 +10,7 @@ class Pendaftaranpeserta {
   final int nomortiket;
   final String statuspendaftaran;
   final int idformpendaftaran;
-  final Event event;
+  final EventPendaftaran event;
   final OrderTransaksi order;
 
   Pendaftaranpeserta(
@@ -25,7 +25,7 @@ class Pendaftaranpeserta {
   factory Pendaftaranpeserta.fromJson(Map<String, dynamic> data) {
     return Pendaftaranpeserta(
         idpendaftaran: json.decode(data['ID_PENDAFTARAN']),
-        event: Event.fromJson(data['event']),
+        event: EventPendaftaran.fromJson(data['event']),
         nomortiket: data['NOMOR_TIKET'],
         order: OrderTransaksi.fromJson(data['order']),
         datapertanyaan: data['DATA_PERTANYAAN'],

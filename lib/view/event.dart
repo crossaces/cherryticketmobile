@@ -2,7 +2,7 @@ import 'package:cherryticketmobile/components/color.dart';
 import 'package:cherryticketmobile/providerAPI/pendaftaran_api.dart';
 import 'package:cherryticketmobile/view/list/item/nodata_item.dart';
 import 'package:cherryticketmobile/view/list/ongoing_list.dart';
-import 'package:cherryticketmobile/view/list/transaksi_list.dart';
+import 'package:cherryticketmobile/view/list/over_list.dart';
 import 'package:cherryticketmobile/view/list/upcoming_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +67,9 @@ class _EventScreenState extends State<EventScreen>
                       Provider.of<PendaftaranpesertaAPI>(context).cekgoings
                           ? const NoDataItem("Upcoming Event Not Found")
                           : OngoingView(lng, lat),
-                      const TransaksiView()
+                      Provider.of<PendaftaranpesertaAPI>(context).cekgoings
+                          ? const NoDataItem("Over Event Not Found")
+                          : OverView(lng, lat),
                     ],
                     controller: tabController,
                   ),
